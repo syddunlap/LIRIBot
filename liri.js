@@ -37,41 +37,43 @@
 // node liri.js movie-this '<movie name here>'
 
 // If the user doesn't type a movie in, the program will output data for the movie 'Mr. Nobody.'
-// If you haven't watched "Mr. Nobody," then you should: http://www.imdb.com/title/tt0485947/
 
-// It's on Netflix!
-// You'll use the axios package to retrieve data from the OMDB API. Like all of the in-class activities, the OMDB API requires an API key. You may use trilogy.
-var axios = require("axios");
-var nodeArgs = process.argv;
-var movieName = "";
+if (process.argv[2] === "movie-this") {
+    var axios = require("axios");
+    var nodeArgs = process.argv;
+    var movieName = "";
 
-// loop through words in node arguments and add +'s needed between words for queryurl
-for (var i = 2; i < nodeArgs.length; i++) {
-    if (i > 2 && i < nodeArgs.length) {
-        movieName = movieName + "+" + nodeArgs[i];
-    } else {
-        movieName += nodeArgs[i];
+    // loop through words in node arguments and add +'s needed between words for queryurl
+    for (var i = 3; i < nodeArgs.length; i++) {
+        if (i > 3 && i < nodeArgs.length) {
+            movieName = movieName + "+" + nodeArgs[i];
+        } else {
+            movieName += nodeArgs[i];
+        }
     }
+
+    // if the user doesn't type a movie in:
+    if (process.argv[3] === undefined) {
+        movieName = "Mr.+Nobody";
+    }
+    // then run a request with the axios package
+    var queryURL = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=trilogy";
+
+    // Request with axios to queryURL
+    axios.get(queryURL).then(
+        function (response) {
+            // If the request with axios is successful
+            console.log("Title: " + response.data.Title);
+            console.log("Release Year: " + response.data.Year);
+            console.log("IMDB Rating: " + response.data.Ratings[1].Value);
+            console.log("Rotton Tomatoes Rating: " + response.data.Ratings[2].Value);
+            console.log("Country: " + response.data.Country);
+            console.log("Language: " + response.data.Language);
+            console.log("Plot: " + response.data.Plot);
+            console.log("Actors: " + response.data.Actors);
+        }
+    );
 }
-
-// then run a request with the axios package
-var queryURL = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=trilogy";
-
-// Request with axios to queryURL
-axios.get(queryURL).then(
-    function (response) {
-        // If the request with axios is successful
-        console.log(response.data);
-        console.log("Title: " + response.data.Title);
-        console.log("Release Year: " + response.data.Year);
-        console.log("IMDB Rating: " + response.data.Ratings[1].Value);
-        console.log("Rotton Tomatoes Rating: " + response.data.Ratings[2].Value);
-        console.log("Country: " + response.data.Country);
-        console.log("Language: " + response.data.Language);
-        console.log("Plot: " + response.data.Plot);
-        console.log("Actors: " + response.data.Actors);
-    }
-);
 /////// STEP FOUR 
 
 // node liri.js do-what-it-says
