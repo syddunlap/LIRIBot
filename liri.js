@@ -5,8 +5,6 @@ const Spotify = require("node-spotify-api");
 const spotify = new Spotify(keys.spotify);
 const axios = require("axios");
 const moment = require("moment");
-// const inquirer = require("inquirer");
-const fs = require("fs");
 
 // variables
 var nodeArgs = process.argv;
@@ -15,6 +13,7 @@ var movieName = "";
 var track = "";
 
 //////// STEP ONE -- currently broken
+//////// give the user information about upcoming concerts/events
 if (process.argv[2] === "concert-this") {
     artist = nodeArgs.slice(3).join(" ");
 
@@ -40,7 +39,7 @@ if (process.argv[2] === "concert-this") {
     );
 }
 
-//////// STEP TWO: COMPLETE
+//////// give the user information about a song
 if (process.argv[2] === "spotify-this-song") {
     track = nodeArgs.slice(3).join(" ");
 
@@ -64,8 +63,7 @@ if (process.argv[2] === "spotify-this-song") {
     })
 }
 
-/////// STEP THREE: COMPLETE
-
+/////// give the user information about a movie
 if (process.argv[2] === "movie-this") {
     movieName = nodeArgs.slice(3).join("+");
 
@@ -92,10 +90,10 @@ if (process.argv[2] === "movie-this") {
         }
     );
 }
-/////// STEP FOUR 
-
-// node liri.js do-what-it-says
-
-// Using the fs Node package, LIRI will take the text inside of random.txt and then use it to call one of LIRI's commands.
-// It should run spotify-this-song for "I Want it That Way," as follows the text in random.txt.
-// Edit the text in random.txt to test out the feature for movie-this and concert-this.
+/////// STEP FOUR -- INCOMPLETE
+//////// give the user random information
+if (process.argv[2] === "do-what-it-says") {
+    // Using the fs Node package, LIRI will take the text inside of random.txt and then use it to call one of LIRI's commands.
+    // It should run spotify-this-song for "I Want it That Way," as follows the text in random.txt.
+    // Edit the text in random.txt to test out the feature for movie-this and concert-this.
+}
