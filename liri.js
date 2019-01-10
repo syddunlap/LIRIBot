@@ -1,18 +1,42 @@
-// // read and set any environment variables with the dotenv package
-// require("dotenv").config();
+// read and set any environment variables with the dotenv package
+require("dotenv").config();
+// const keys = require("./keys.js");
+// const Spotify = require("node-spotify-api");
+// const spotify = new Spotify(keys.spotify);
+const axios = require("axios");
+const moment = require("moment");
+// const inquirer = require("inquirer");
+const fs = require("fs");
 
-// // import the keys.js file and store it in a variable
-// var keys = require("./keys.js");
+// variables
+var nodeArgs = process.argv;
+var artist = "";
+var movieName = "";
 
-// // access your keys information
-// var spotify = new spotify(keys.spotify);
+//////// STEP ONE -- currently broken
 
-//////// STEP ONE
-// node liri.js concert.this <artist/band name here>
-// This will search the Bands in Town Artist Events API ("https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp") for an artist and render the following information about each event to the terminal:
-// Name of the venue
-// Venue location
-// Date of the Event (use moment to format this as "MM/DD/YYYY")
+if (process.argv[2] === "concert-this") {
+    artist = nodeArgs.slice(3).join(" ");
+
+    var queryURL = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp";
+
+    // Request with axios to queryURL
+    axios.get(queryURL).then(
+        function (response) {
+            console.log(response);
+            // If the request with axios is successful
+            console.log("Here are upcoming events for " + artist + ":");
+            console.log(moment(response.data[0].datetime).format("MM/DD/YYYY, h:mm a"));
+            console.log("Venue: " + response.data[0].venue.name);
+            console.log("Location: " + response.data[0].venue.city + ", " + response.data[0].venue.region + ", " + response.data[0].venue.country);
+            console.log("--------------------");
+            console.log(moment("Date & Time: " + response.data[1].datetime).format("MM/DD/YYYY, h:mm a"));
+            console.log("Venue: " + response.data[1].venue.name);
+            console.log("Location: " + response.data[1].venue.city + ", " + response.data[1].venue.region + ", " + response.data[1].venue.country);
+            console.log("--------------------");
+        }
+    );
+}
 
 //////// STEP TWO
 
@@ -32,30 +56,16 @@
 // Step Three: Once logged in, navigate to https://developer.spotify.com/my-applications/#!/applications/create to register a new application to be used with the Spotify API. You can fill in whatever you'd like for these fields. When finished, click the "complete" button.
 // Step Four: On the next screen, scroll down to where you see your client id and client secret. Copy these values down somewhere, you'll need them to use the Spotify API and the node-spotify-api package.
 
-/////// STEP THREE
-
-// node liri.js movie-this '<movie name here>'
-
-// If the user doesn't type a movie in, the program will output data for the movie 'Mr. Nobody.'
+/////// STEP THREE: COMPLETE
 
 if (process.argv[2] === "movie-this") {
-    var axios = require("axios");
-    var nodeArgs = process.argv;
-    var movieName = "";
-
-    // loop through words in node arguments and add +'s needed between words for queryurl
-    for (var i = 3; i < nodeArgs.length; i++) {
-        if (i > 3 && i < nodeArgs.length) {
-            movieName = movieName + "+" + nodeArgs[i];
-        } else {
-            movieName += nodeArgs[i];
-        }
-    }
+    movieName = nodeArgs.slice(3).join("+");
 
     // if the user doesn't type a movie in:
     if (process.argv[3] === undefined) {
         movieName = "Mr.+Nobody";
     }
+
     // then run a request with the axios package
     var queryURL = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=trilogy";
 
