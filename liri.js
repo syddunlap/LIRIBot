@@ -15,7 +15,6 @@ var movieName = "";
 var track = "";
 
 //////// STEP ONE -- currently broken
-
 if (process.argv[2] === "concert-this") {
     artist = nodeArgs.slice(3).join(" ");
 
@@ -64,12 +63,6 @@ if (process.argv[2] === "spotify-this-song") {
         console.log("--------------------");
     })
 }
-// Artist(s)
-// The song's name
-// A preview link of the song from Spotify
-// The album that the song is from
-
-// If no song is provided then your program will default to "The Sign" by Ace of Base.
 
 /////// STEP THREE: COMPLETE
 
