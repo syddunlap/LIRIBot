@@ -45,7 +45,7 @@ if (process.argv[2] === "concert-this") {
 }
 
 //////// give the user information about a song
-if (process.argv[2] === "spotify-this-song") {
+if (process.argv[2] === "spotify-this-song")
     track = nodeArgs.slice(3).join(" ");
     spotify.search({
         type:"track",
@@ -55,32 +55,32 @@ if (process.argv[2] === "spotify-this-song") {
     .then(function (response) {
         console.log("Information for the song '" + track + "':");
         console.log("--------------------");
-        console.log("Song Title:" + response.tracks.items[9].name);
-        console.log("Artist: " + response.tracks.items[9].artists.name);
-        console.log("Album: " + response.tracks.items[9].album.name);
-        console.log("Link: " + response.tracks.items[9].external_urls.spotify);
+        console.log("Song Title:" + response.tracks.items[0].name);
+        console.log("Artist: " + response.tracks.items[0].artists.name);
+        console.log("Album: " + response.tracks.items[0].album.name);
+        console.log("Link: " + response.tracks.items[0].external_urls.spotify);
         console.log("--------------------");
     });
 
     if (process.argv[3] === undefined) {
         track = "The Sign";
+        spotify.search({
+            type: "track",
+            query: track,
+            limit: 10
+        })
+        .then(function(response) {
+            console.log("Information for the song '" + track + "':");
+            console.log("--------------------");
+            console.log("Song Title:" + response.tracks.items[9].name);
+            console.log("Artist: " + response.tracks.items[9].artists.name);
+            console.log("Album: " + response.tracks.items[9].album.name);
+            console.log("Link: " + response.tracks.items[9].external_urls.spotify);
+            console.log("--------------------");
+        });
     };
 
-    spotify.search({
-        type: "track",
-        query: track,
-        limit: 10
-    })
-    .then(function(response) {
-        console.log("Information for the song '" + track + "':");
-        console.log("--------------------");
-        console.log("Song Title:" + response.tracks.items[9].name);
-        console.log("Artist: " + response.tracks.items[9].artists.name);
-        console.log("Album: " + response.tracks.items[9].album.name);
-        console.log("Link: " + response.tracks.items[9].external_urls.spotify);
-        console.log("--------------------");
-    });
-}
+
 
 /////// give the user information about a movie
 if (process.argv[2] === "movie-this") {
@@ -121,3 +121,7 @@ if (process.argv[2] === "do-what-it-says") {
         // make this work
     })
 }
+
+// I have lots of debugging to do.
+// During testing, application worked for certain steps the first few tries, but broke on later attempts
+// Pseodocode for Step Four would be to use 'switch.' Potentially to change the majority of the 'if' statements throuhgout into separate cases and then 'switch' from case to case when the user types in an argument
