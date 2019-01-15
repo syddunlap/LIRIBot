@@ -9,5 +9,5 @@ LIRIBot is a Language Interpretation and Recognition Interface. This is a comman
 
 ## Project Screenshots
 
-![concert-this](images/concert-this.png)
+![concert-this](images/concertthis.png)
 ![spotify-this-song](/images/spotifythissong.png)
