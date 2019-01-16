@@ -55,8 +55,9 @@ function concertThis() {
                     console.log("Location: " + response.data[2].venue.city + ", " + response.data[2].venue.region + ", " + response.data[2].venue.country);
                     console.log("--------------------");
                     console.log("\r\n\r\n");
-                }
-            );
+                }).catch(function (error) {
+                    console.log("An error has occurred");
+                })
     } else {
         console.log("You forgot to input an artist. Try again.");
     }
@@ -75,12 +76,14 @@ function spotifyThisSong() {
                 console.log("Information for the song '" + track + "':");
                 console.log("--------------------");
                 console.log("Song Title:" + response.tracks.items[0].name);
-                console.log("Artist: " + response.tracks.items[0].artists.name);
+                console.log("Artist: " + response.tracks.items[0].artists[0].name);
                 console.log("Album: " + response.tracks.items[0].album.name);
                 console.log("Link: " + response.tracks.items[0].external_urls.spotify);
                 console.log("--------------------");
                 console.log("\r\n\r\n");
-            });
+            }).catch(function (error) {
+                console.log("An error has occurred");
+            })
     } else {
         track = "The Sign";
         spotify.search({
@@ -95,12 +98,14 @@ function spotifyThisSong() {
                 console.log("Information for the song '" + track + "':");
                 console.log("--------------------");
                 console.log("Song Title:" + response.tracks.items[9].name);
-                console.log("Artist: " + response.tracks.items[9].artists.name);
+                console.log("Artist: " + response.tracks.items[9].artists[0].name);
                 console.log("Album: " + response.tracks.items[9].album.name);
                 console.log("Link: " + response.tracks.items[9].external_urls.spotify);
                 console.log("--------------------");
                 console.log("\r\n\r\n");
-            });
+            }).catch(function (error) {
+                console.log("An error has occurred");
+            })
     }
 };
 
@@ -126,8 +131,9 @@ function movieThis() {
                     console.log("Actors: " + response.data.Actors);
                     console.log("--------------------");
                     console.log("\r\n\r\n");
-                }
-            );
+                }).catch(function (error) {
+                    console.log("An error has occured");
+                })  
     } else {
         movieName = "Mr.+Nobody";
         var queryURL = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=trilogy";
@@ -151,8 +157,9 @@ function movieThis() {
                     console.log("Actors: " + response.data.Actors);
                     console.log("--------------------");
                     console.log("\r\n\r\n");
-                }
-            );
+                }).catch(function (error) {
+                    console.log("An error has occurred");
+                })
     }
 };
 
