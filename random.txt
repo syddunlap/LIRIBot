@@ -1,3 +1,1 @@
 spotify-this-song,"I Want it Than Way"
-movie-this,"Spice+Girls"
-concert-this,"Lady Gaga"

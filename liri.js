@@ -5,7 +5,7 @@ const Spotify = require("node-spotify-api");
 const spotify = new Spotify(keys.spotify);
 const axios = require("axios");
 const moment = require("moment");
-// const fs = require("fs");
+const fs = require("fs");
 
 // variables
 var nodeArgs = process.argv;
@@ -164,18 +164,34 @@ function movieThis() {
 };
 
 /////// STEP FOUR -- INCOMPLETE
-//////// give the user random information from random.txt file
-// if (process.argv[2] === "do-what-it-says") {
-//     fs.readFile("random.txt", "utf8", function (error, data) {
-//         if (error) {
-//             return console.log("Error: " + error)
-//         }
+if (nodeArgs[2] === "do-what-it-says") {
+    fs.readFile("random.txt", function(error, data){
+        if(error) {
+            return console.log("Error: " + error);
+        }
+        console.log(data);
+        dataArr = data
+        console.log(dataArr[0]);
+        console.log(dataArr[1]);
+        doWhatItSays();
+        switch (nodeArgs[2]) {
+            case "spotify-this-song":
+            spotifyThis();
+            break;
 
-//         dataArr = data.split(",");
-//         // make this work
-//     })
-// }
+            case "concert-this":
+            concertThis();
+            break;
 
-// I have lots of debugging to do.
-// During testing, application worked for certain steps the first few tries, but broke on later attempts
-// Pseodocode for Step Four would be to use 'switch.' Potentially to change the majority of the 'if' statements throuhgout into separate cases and then 'switch' from case to case when the user types in an argument
+            case "movie-this":
+            movieThis();
+            break;
+        }
+    })
+    function doWhatItSays() {
+        nodeArgs[0] = "node";
+        nodeArgs[1] = "liri.js";
+        nodeArgs[2] = dataArr[0];
+        nodeArgs[3] = dataArr[1];
+    }
+}
