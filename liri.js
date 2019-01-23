@@ -165,14 +165,12 @@ function movieThis() {
 
 /////// STEP FOUR -- INCOMPLETE
 if (nodeArgs[2] === "do-what-it-says") {
-    fs.readFile("random.txt", function(error, data){
+    fs.readFile("random.txt", "utf8", function(error, data){
         if(error) {
             return console.log("Error: " + error);
         }
         console.log(data);
-        dataArr = data
-        console.log(dataArr[0]);
-        console.log(dataArr[1]);
+        // figure out a way to split the data using the comma within the data already
         doWhatItSays();
         switch (nodeArgs[2]) {
             case "spotify-this-song":
@@ -191,7 +189,8 @@ if (nodeArgs[2] === "do-what-it-says") {
     function doWhatItSays() {
         nodeArgs[0] = "node";
         nodeArgs[1] = "liri.js";
-        nodeArgs[2] = dataArr[0];
-        nodeArgs[3] = dataArr[1];
+        // when data is split above identify the next two nodeArgs
+        // nodeArgs[2] = dataArr[0];
+        // nodeArgs[3] = dataArr[1];
     }
 }
