@@ -8,10 +8,10 @@ const moment = require("moment");
 const fs = require("fs");
 
 // variables
-var nodeArgs = process.argv;
-var artist;
-var movieName;
-var track;
+let nodeArgs = process.argv;
+let artist;
+let movieName;
+let track;
 
 switch (nodeArgs[2]) {
     case "concert-this":
@@ -31,7 +31,7 @@ switch (nodeArgs[2]) {
 function concertThis() {
     if (nodeArgs[3]) {
         artist = nodeArgs.slice(3).join(" ");
-        var queryURL = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp";
+        let queryURL = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp";
 
         // Request with axios to queryURL
         axios.get(queryURL)
@@ -112,7 +112,7 @@ function spotifyThisSong() {
 function movieThis() {
     if (nodeArgs[3]) {
         movieName = nodeArgs.slice(3).join("+");
-        var queryURL = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=trilogy";
+        let queryURL = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=trilogy";
 
         // Request with axios to queryURL
         axios.get(queryURL)
@@ -136,7 +136,7 @@ function movieThis() {
                 })
     } else {
         movieName = "Mr.+Nobody";
-        var queryURL = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=trilogy";
+        let queryURL = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=trilogy";
 
         // Request with axios to queryURL
         axios.get(queryURL)
@@ -170,7 +170,7 @@ if (nodeArgs[2] === "do-what-it-says") {
             return console.log("Error: " + error);
         }
         // console.log(data);
-        var dataArr = data.split(",");
+        let dataArr = data.split(",");
         function doWhatItSays() {
             nodeArgs[0] = "node";
             nodeArgs[1] = "liri.js";
